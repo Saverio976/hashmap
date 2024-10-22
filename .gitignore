@@ -1,0 +1,3 @@
+*.o
+*.a
+/hashmap_main
