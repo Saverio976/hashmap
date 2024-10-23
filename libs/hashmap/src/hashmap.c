@@ -44,7 +44,7 @@ void hm_free(hm_t *hm)
     *hm = NULL;
 }
 
-hm_node_t hm_at(hm_t hm, const char key[HM_MAX_KEY_SIZE])
+hm_node_t hm_at(hm_t hm, const char *key)
 {
     size_t index = 0;
     struct hashmap *hm_i = NULL;
@@ -60,14 +60,14 @@ hm_node_t hm_at(hm_t hm, const char key[HM_MAX_KEY_SIZE])
     strncpy(key1, key, HM_MAX_KEY_SIZE);
     index = hm_i->hash(key1) % hm_i->capacity;
     // Find if exist
-    node_init = ll_at(hm_i->array + index, 0);
-    if (node_init == NULL) {
-        return NULL;
-    }
+    node_init = ll_at(hm_i->array[index], 0);
     node_cursor = node_init;
     do {
+        if (node_init == NULL) {
+            continue;
+        }
         node_i = ll_get(node_cursor);
-        if (node_i != NULL && strcmp(node_i->key, key1)) {
+        if (node_i != NULL && !strcmp(node_i->key, key1)) {
             return node_i;
         }
         node_cursor = ll_next(node_cursor);
@@ -142,9 +142,9 @@ int hm_clear(hm_t hm)
     }
     hm_i = hm;
     for (size_t i = 0; i < hm_i->capacity; i++) {
-        for (node_cursor = ll_at(hm_i->array + i, 0); \
+        for (node_cursor = ll_at(hm_i->array[i], 0); \
                 node_cursor != NULL; \
-                node_cursor = ll_at(hm_i->array + i, 0)) {
+                node_cursor = ll_at(hm_i->array[i], 0)) {
             node_i = ll_get(node_cursor);
             countor += hm_remove(hm_i, node_i);
         }

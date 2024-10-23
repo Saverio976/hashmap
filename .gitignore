@@ -1,5 +1,8 @@
 *.o
 *.a
+vgcore.*
 /hashmap_main
 /libs/hashmap/tests/functional_tests/linkedlist
-/libs/hashmap/hashmap_tests
+/libs/hashmap/tests/functional_tests/hashmap
+/libs/hashmap/tests/functional_tests/hashmap_guide
+/libs/hashmap/hashmap_unit_tests

@@ -29,6 +29,17 @@ int test2(void)
     return 0;
 }
 
+int test3(void)
+{
+    ll_t list = ll_new();
+    ll_append(&list, (void *) 1);
+    ll_append(&list, (void *) 3);
+    ll_append(&list, (void *) 5);
+    ll_assign(ll_at(list, 0), (void *) 10);
+    ll_clear(&list);
+    return 0;
+}
+
 int main(void)
 {
     test1();

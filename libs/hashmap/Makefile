@@ -1,6 +1,8 @@
 TARGET	=	libhashmap.a
 
-SRC		=	src/linkedlist.c
+SRC		=	src/linkedlist.c	\
+			src/hashmap.c		\
+			src/hash.c
 
 OBJ		=	$(SRC:.c=.o)
 
@@ -10,7 +12,8 @@ CFLAGS	+=	-Iincludes
 
 TARGET_UNIT_TEST	=	hashmap_unit_tests
 
-SRC_UNIT_TEST	=	tests/unit_tests/linkedlist.c
+SRC_UNIT_TEST	=	tests/unit_tests/linkedlist.c	\
+					tests/unit_tests/hashmap.c
 
 OBJ_UNIT_TEST	=	$(SRC_UNIT_TEST:.c=.o)
 
@@ -20,7 +23,9 @@ LDFLAGS_UNIT_TEST	=	-lcriterion
 
 # FUNCTIONAL TESTS
 
-SRC_FUNCTIONAL_TEST	=	tests/functional_tests/linkedlist.c
+SRC_FUNCTIONAL_TEST	=	tests/functional_tests/hashmap.c	\
+						tests/functional_tests/hashmap_guide.c	\
+						tests/functional_tests/linkedlist.c
 
 CFLAGS_FUNCTIONAL_TEST	=	-g
 
@@ -43,8 +48,8 @@ unit_test:	$(OBJ) $(OBJ_UNIT_TEST)
 functional_test: CFLAGS	+= $(CFLAGS_FUNCTIONAL_TEST)
 functional_test: $(OBJ)
 	$(foreach prog_src,$(SRC_FUNCTIONAL_TEST), \
-		gcc $(CFLAGS) -o $(prog_src:.c=) $(OBJ) $(prog_src) && \
-			cd $(dir $(prog_src)) && ./$(notdir $(prog_src:.c=.sh)) \
+		(gcc $(CFLAGS) -o $(prog_src:.c=) $(OBJ) $(prog_src) && \
+			cd $(dir $(prog_src)) && ./$(notdir $(prog_src:.c=.sh))); \
 	)
 
 clean:
