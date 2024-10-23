@@ -1,3 +1,5 @@
 *.o
 *.a
 /hashmap_main
+/libs/hashmap/tests/functional_tests/linkedlist
+/libs/hashmap/hashmap_tests
