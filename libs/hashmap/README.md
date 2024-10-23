@@ -13,6 +13,13 @@ HashMap in C:
 make
 ```
 
+You can now link it with your program.
+
+```bash
+# example:
+gcc -o main main.c -Lpath/to/this/directory -lhashmap
+```
+
 ### Run Tests
 
 #### Unit Tests
