@@ -26,7 +26,7 @@ size_t sdbm(const char *key)
     return hash;
 }
 
-size_t badhash(const char *key)
+size_t badhash_c(const char *key)
 {
     size_t hash = 0;
 
