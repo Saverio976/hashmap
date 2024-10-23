@@ -191,9 +191,11 @@ int hm_remove(hm_t hm, hm_node_t node)
     }
     hm_i = hm;
     node_i = node;
+    // remove the list_node item
     if (ll_remove(hm_i->array + node_i->index, node_i->ll_node) != 1) {
         return 0;
     }
+    // free the hm_node
     free(node_i);
     return 1;
 }
@@ -210,12 +212,17 @@ int hm_clear(hm_t hm)
     }
     hm_i = hm;
     for (size_t i = 0; i < hm_i->capacity; i++) {
+        // for each list
         for (node_cursor = ll_at(hm_i->array[i], 0); \
                 node_cursor != NULL; \
                 node_cursor = ll_at(hm_i->array[i], 0)) {
+            // for each item in the list
             node_i = ll_get(node_cursor);
+            // remove the node
             countor += hm_remove(hm_i, node_i);
         }
+        // call list clear to be sure (in the event of a bad hm_remove, this
+        // can leak some hm_node).
         ll_clear(hm_i->array + i);
     }
     return countor;

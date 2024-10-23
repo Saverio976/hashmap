@@ -7,6 +7,9 @@
 
 ll_t ll_new(void)
 {
+    // yes, it is a double linkedlist, there is only nodes in it,
+    // we lie to the user.
+    // ll_append to null will point the list to the first created.
     return NULL;
 }
 
@@ -15,6 +18,9 @@ ll_node_t ll_append(ll_t *list, void *data)
     struct linkedlist *list_i = NULL;
     struct linkedlist *new = NULL;
 
+    // if the pointer on a ll_t is null.
+    // the user will give us the pointer on the node pointer
+    // so we can modify his value.
     if (!list) {
         return NULL;
     }
@@ -25,10 +31,12 @@ ll_node_t ll_append(ll_t *list, void *data)
     }
     new->data = data;
     if (!list_i) {
+        // it is a new list
         new->prev = new;
         new->next = new;
         *list = new;
     } else {
+        // append the node at the end
         new->prev = list_i->prev;
         new->next = list_i;
         list_i->prev->next = new;
@@ -47,17 +55,22 @@ int ll_remove(ll_t *list, ll_node_t node)
     }
     node_i = node;
     if (node_i->next) {
+        // be sure to not crash if set to null (?)
         node_i->next->prev = node_i->prev;
     }
     if (node_i->prev) {
+        // be sure to not crash if set to null (?)
         node_i->prev->next = node_i->next;
     }
     tmp = node_i->next;
     free(node_i);
     if (list && *list == node) {
+        // if the value of the list in user is the one we remove
         if (tmp == node) {
+            // if the next item is the one we remove (only one item in the list)
             *list = NULL;
         } else {
+            // set to the next item
             *list = tmp;
         }
     }
@@ -97,6 +110,9 @@ int ll_clear(ll_t *list)
     }
     list_i = *list;
     while (*list != NULL) {
+        // while there is at least one item, remove it.
+        // this can potentialy do a endless loop if it can't remove (
+        // I don't know why it would not remove)
         countor += ll_remove(list, list_i);
         list_i = *list;
     }
@@ -114,8 +130,10 @@ ll_node_t ll_at(ll_t list, size_t index)
     init_i = list;
     list_i = list;
     for (size_t i = 0; i < index; i++) {
+        // ll_at need to iterate on all item until the index is found
         list_i = list_i->next;
         if (list_i == init_i) {
+            // we looped back to the first element
             return NULL;
         }
     }
@@ -146,5 +164,7 @@ ll_node_t ll_prev(ll_node_t node)
 
 void ll_free(ll_t *list)
 {
+    // only node in the list, if we remove all nodes,
+    // nothing else need to be removed
     ll_clear(list);
 }

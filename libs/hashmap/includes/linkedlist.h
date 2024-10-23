@@ -35,6 +35,9 @@ int ll_assign(ll_node_t node, void *data);
 int ll_clear(ll_t *list);
 
 // Get node at index.
+// !WARNING! This need to iterate on all item until selecting the right index
+// !WARNING! This can cost performance issue if you do `ll_at(1); ll_at(1)`
+// !WARNING! See ll_next(); ll_prev() for alternativ.
 // Return: the node.
 ll_node_t ll_at(ll_t list, size_t index);
 
