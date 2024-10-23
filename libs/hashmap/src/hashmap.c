@@ -10,6 +10,9 @@ hm_t hm_new(size_t capacity, hash_fn_t hash)
 {
     struct hashmap *hm = NULL;
 
+    if (capacity == 0) {
+        return NULL;
+    }
     hm = malloc(sizeof(struct hashmap) * 1);
     if (hm == NULL) {
         return NULL;
@@ -88,6 +91,30 @@ hm_node_t hm_at(hm_t hm, const char *key)
     }
     node_i->ll_node = node;
     return node_i;
+}
+
+hm_node_t hm_next(hm_t hm, hm_node_t node)
+{
+    struct hashmap *hm_i = NULL;
+    struct hashmap_node *node_i = NULL;
+    ll_node_t next = NULL;
+
+    if (hm == NULL) {
+        return NULL;
+    }
+    hm_i = hm;
+    if (node == NULL) {
+        return ll_at(hm_i->array[0], 0);
+    }
+    node_i = node;
+    next = ll_next(node_i->ll_node);
+    if (next == ll_at(hm_i->array[node_i->index], 0)) {
+        if (node_i->index + 1 >= hm_i->capacity) {
+            return NULL;
+        }
+        return ll_at(hm_i->array[node_i->index + 1], 0);
+    }
+    return ll_get(next);
 }
 
 int hm_assign(hm_node_t node, void *data)

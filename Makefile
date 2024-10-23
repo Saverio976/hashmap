@@ -1,25 +1,23 @@
-TARGET	=	hasmap_main
+TARGET	=	hashmap_main
 
 SRC		=	src/main.c
 
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS	=	$(CFLAGS)	\
-			-Ilibs/hashmap/includes
+CFLAGS	+=	-Ilibs/hashmap/includes
 
-LDFLAGS	=	$(LDFLAGS)	\
-			-Libs/hashmap \
+LDFLAGS	+=	-Llibs/hashmap \
 			-lhashmap
 
 all:	$(TARGET)
 
 $(TARGET):	libs/hashmap/libhashmap.a $(OBJ)
-	gcc $(LDFLAGS) -o $(TARGET) $(OBJ)
+	gcc -o $(TARGET) $(OBJ) $(LDFLAGS)
 
-src/%.o: src/%.c
-	gcc $(CFLAGS) -c $<
+%.o: %.c
+	gcc $(CFLAGS) -c $< -o $@
 
-libhashmap.a:
+libs/hashmap/libhashmap.a:
 	$(MAKE) -C libs/hashmap
 
 clean:
