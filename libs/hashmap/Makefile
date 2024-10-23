@@ -3,7 +3,9 @@ TARGET	=	libhashmap.a
 SRC		=	src/linkedlist.c	\
 			src/hashmap.c		\
 			src/hash.c			\
-			src/hash_badhash.s
+			src/hash_badhash.s	\
+			src/hash_djb2.s		\
+			src/hash_sdbm.s
 
 OBJ		=	$(subst .s,.o,$(subst .c,.o,$(SRC)))
 
@@ -32,7 +34,9 @@ LDFLAGS_UNIT_TEST	=	-lcriterion
 SRC_FUNCTIONAL_TEST	=	tests/functional_tests/hashmap.c		\
 						tests/functional_tests/hashmap_guide.c	\
 						tests/functional_tests/linkedlist.c		\
-						tests/functional_tests/hash_badhash.c
+						tests/functional_tests/hash_badhash.c	\
+						tests/functional_tests/hash_djb2.c		\
+						tests/functional_tests/hash_sdbm.c
 
 CFLAGS_FUNCTIONAL_TEST	=	-g
 
@@ -64,4 +68,4 @@ functional_test:	$(OBJ)
 	)
 
 clean:
-	rm -f $(OBJ) $(OBJ_UNIT_TEST) $(TARGET)
+	rm -f $(OBJ) $(OBJ_UNIT_TEST) $(TARGET) $(TARGET_UNIT_TEST) $(SRC_FUNCTIONAL_TEST:.c=)

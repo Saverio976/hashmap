@@ -1,6 +1,7 @@
 #include "hash.h"
+#include "hash_internal.h"
 
-size_t djb2(const char *key)
+size_t djb2_c(const char *key)
 {
     size_t hash = 5381;
 
@@ -13,7 +14,7 @@ size_t djb2(const char *key)
     return hash;
 }
 
-size_t sdbm(const char *key)
+size_t sdbm_c(const char *key)
 {
     size_t hash = 0;
 

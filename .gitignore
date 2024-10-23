@@ -3,6 +3,8 @@
 vgcore.*
 /hashmap_main
 /libs/hashmap/tests/functional_tests/hash_badhash
+/libs/hashmap/tests/functional_tests/hash_djb2
+/libs/hashmap/tests/functional_tests/hash_sdbm
 /libs/hashmap/tests/functional_tests/linkedlist
 /libs/hashmap/tests/functional_tests/hashmap
 /libs/hashmap/tests/functional_tests/hashmap_guide

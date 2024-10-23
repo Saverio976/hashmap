@@ -41,7 +41,7 @@ Test(djb2, some) {
         hashed[i] = djb2(basic_words[i]);
     }
     for (int i = 0; i < MAX_NB_WORDS; i++) {
-        cr_assert_eq(hashed[i], hashed_res[i], "Expected: %zu | Got: %zu", hashed_res[i], hashed[i]);
+        cr_assert_eq(hashed[i], hashed_res[i], "%d: Expected: %zu | Got: %zu", i, hashed_res[i], hashed[i]);
         for (int j = i + 1; j < MAX_NB_WORDS; j++) {
             cr_assert_neq(hashed[i], hashed[j]);
         }
@@ -68,7 +68,7 @@ Test(sdbm, some) {
         hashed[i] = sdbm(basic_words[i]);
     }
     for (int i = 0; i < MAX_NB_WORDS; i++) {
-        cr_assert_eq(hashed[i], hashed_res[i], "Expected: %zu | Got: %zu", hashed_res[i], hashed[i]);
+        cr_assert_eq(hashed[i], hashed_res[i], "%d: Expected: %zu | Got: %zu", i, hashed_res[i], hashed[i]);
         for (int j = i + 1; j < MAX_NB_WORDS; j++) {
             cr_assert_neq(hashed[i], hashed[j]);
         }
