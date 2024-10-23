@@ -43,7 +43,7 @@ int ll_remove(ll_t *list, ll_node_t node)
     struct linkedlist *node_i = NULL;
 
     if (!node) {
-        return 1;
+        return 0;
     }
     node_i = node;
     if (node_i->next) {
@@ -61,7 +61,7 @@ int ll_remove(ll_t *list, ll_node_t node)
             *list = tmp;
         }
     }
-    return 0;
+    return 1;
 }
 
 void *ll_get(ll_node_t node)
@@ -73,6 +73,18 @@ void *ll_get(ll_node_t node)
     }
     node_i = node;
     return node_i->data;
+}
+
+int ll_assign(ll_node_t node, void *data)
+{
+    struct linkedlist *node_i = NULL;
+
+    if (!node) {
+        return 0;
+    }
+    node_i = node;
+    node_i->data = data;
+    return 1;
 }
 
 int ll_clear(ll_t *list)

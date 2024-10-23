@@ -47,13 +47,17 @@ Test(ll_append, to_one_item) {
     cr_assert_eq(ll_at(list, 2), node3);
     cr_assert_eq(ll_at(list, 3), NULL);
 
-    ll_remove(&list, node2);
+    cr_assert_eq(ll_assign(ll_at(list, 1), (void *) 10), 1);
+    cr_assert_eq(ll_get(node2), (void *) 10);
+    cr_assert_eq(ll_assign(ll_at(list, 3), (void *) 11), 0);
+
+    cr_assert_eq(ll_remove(&list, node2), 1);
     cr_assert_not_null(list);
     cr_assert_eq(list, node1);
-    ll_remove(&list, node1);
+    cr_assert_eq(ll_remove(&list, node1), 1);
     cr_assert_not_null(list);
     cr_assert_eq(list, node3);
-    ll_remove(&list, node3);
+    cr_assert_eq(ll_remove(&list, node3), 1);
     cr_assert_null(list);
 }
 
@@ -71,6 +75,6 @@ Test(ll_clear, basic) {
     cr_assert_not_null(node3);
     cr_assert_eq(ll_get(node3), (void *) 5);
     cr_assert_eq(list, node1);
-    ll_clear(&list);
+    cr_assert_eq(ll_clear(&list), 3);
     cr_assert_null(list);
 }

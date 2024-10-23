@@ -146,7 +146,7 @@ int hm_clear(hm_t hm)
                 node_cursor != NULL; \
                 node_cursor = ll_at(hm_i->array + i, 0)) {
             node_i = ll_get(node_cursor);
-            countor += hm_remove_node(hm_i, node_i);
+            countor += hm_remove(hm_i, node_i);
         }
         ll_clear(hm_i->array + i);
     }
