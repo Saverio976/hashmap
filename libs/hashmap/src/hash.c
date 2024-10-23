@@ -1,6 +1,7 @@
 #include "hash.h"
 #include "hash_internal.h"
 
+// from: http://www.cse.yorku.ca/~oz/hash.html
 size_t djb2_c(const char *key)
 {
     size_t hash = 5381;
@@ -14,6 +15,7 @@ size_t djb2_c(const char *key)
     return hash;
 }
 
+// from: http://www.cse.yorku.ca/~oz/hash.html
 size_t sdbm_c(const char *key)
 {
     size_t hash = 0;
@@ -27,6 +29,7 @@ size_t sdbm_c(const char *key)
     return hash;
 }
 
+// from: http://www.cse.yorku.ca/~oz/hash.html
 size_t badhash_c(const char *key)
 {
     size_t hash = 0;

@@ -77,6 +77,10 @@ int hm_assign(hm_node_t node, void *data);
 // Return: the data.
 void *hm_get(hm_node_t node);
 
+// Get the key of a node.
+// Return: the key.
+const char *hm_key(hm_node_t node);
+
 // Iterrate over all key / value of the map.
 // Return: the next after the node.
 hm_node_t hm_next(hm_t hm, hm_node_t node);

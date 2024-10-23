@@ -17,11 +17,13 @@ hm_t hm_new(size_t capacity, hash_fn_t hash)
     if (hm == NULL) {
         return NULL;
     }
+    // array size capacity of ll_t element
     hm->array = malloc(sizeof(ll_t) * capacity);
     if (hm->array == NULL) {
         free(hm);
         return NULL;
     }
+    // init each element
     for (size_t i = 0; i < capacity; i++) {
         hm->array[i] = ll_new();
     }
@@ -62,20 +64,21 @@ hm_node_t hm_at(hm_t hm, const char *key)
     hm_i = hm;
     strncpy(key1, key, HM_MAX_KEY_SIZE);
     index = hm_i->hash(key1) % hm_i->capacity;
-    // Find if exist
+    // Find node if exist
     node_init = ll_at(hm_i->array[index], 0);
     node_cursor = node_init;
-    do {
+    do { // iterate on all node at the index given by the hash
         if (node_init == NULL) {
             continue;
         }
-        node_i = ll_get(node_cursor);
+        node_i = ll_get(node_cursor); // get the hm_node from the list_node
         if (node_i != NULL && !strcmp(node_i->key, key1)) {
+            // Found
             return node_i;
         }
         node_cursor = ll_next(node_cursor);
     } while (node_cursor != node_init && node_cursor != NULL);
-    // Create if not exist
+    // Create node if not exist
     node_i = malloc(sizeof(struct hashmap_node) * 1);
     if (node_i == NULL) {
         return NULL;
@@ -86,11 +89,38 @@ hm_node_t hm_at(hm_t hm, const char *key)
     node_i->data = NULL;
     ll_node_t node = ll_append(hm_i->array + index, node_i);
     if (node == NULL) {
+        // node append to list failed
         free(node_i);
         return NULL;
     }
     node_i->ll_node = node;
     return node_i;
+}
+
+static hm_node_t find_first_not_empty(hm_t hm, hm_node_t node) {
+    struct hashmap *hm_i = NULL;
+    struct hashmap_node *node_i = NULL;
+    size_t start = 0;
+
+    if (hm == NULL) {
+        return NULL;
+    }
+    hm_i = hm;
+    if (node != NULL) {
+        node_i = node;
+        start = node_i->index + 1;
+        if (start >= hm_i->capacity) {
+            return NULL;
+        }
+    }
+    for (size_t i = start; i < hm_i->capacity; i++) {
+        node_i = ll_get(ll_at(hm_i->array[i], 0));
+        if (node_i == NULL) {
+            continue;
+        }
+        return node_i;
+    }
+    return NULL;
 }
 
 hm_node_t hm_next(hm_t hm, hm_node_t node)
@@ -104,16 +134,16 @@ hm_node_t hm_next(hm_t hm, hm_node_t node)
     }
     hm_i = hm;
     if (node == NULL) {
-        return ll_at(hm_i->array[0], 0);
+        // start of the iterate
+        return find_first_not_empty(hm, node);
     }
     node_i = node;
     next = ll_next(node_i->ll_node);
     if (next == ll_at(hm_i->array[node_i->index], 0)) {
-        if (node_i->index + 1 >= hm_i->capacity) {
-            return NULL;
-        }
-        return ll_at(hm_i->array[node_i->index + 1], 0);
+        // find next list where not empty
+        return find_first_not_empty(hm, node);
     }
+    // next of the same list
     return ll_get(next);
 }
 
@@ -138,6 +168,17 @@ void *hm_get(hm_node_t node)
     }
     node_i = node;
     return node_i->data;
+}
+
+const char *hm_key(hm_node_t node)
+{
+    struct hashmap_node *node_i = NULL;
+
+    if (node == NULL) {
+        return NULL;
+    }
+    node_i = node;
+    return node_i->key;
 }
 
 int hm_remove(hm_t hm, hm_node_t node)
