@@ -1,30 +1,24 @@
 global badhash
-
 badhash:
-    push rbp
-    mov rbp, rsp
-    push r8
-    push r9
-
-.instanciate:
-    mov r8, 0
-    mov r9, r8
 
 .check_null:
     test rdi, rdi           ; test if NULL pointer
-    jz .end
+    jz .end_null
+
+.instanciate:
+    mov rax, 0
+    xor r8, r8
+    jmp .loop_middle
 
 .loop:
-    cmp [rdi], byte 0       ; test for '\0'
-    jz .end
-    movsx r9, byte [rdi]
-    add r8, r9              ; add char to the final hash
+    add rax, r8             ; add char to the final hash
     inc rdi                 ; pointing to next char
-    jmp .loop
+.loop_middle:
+    movsx r8, byte [rdi]
+    cmp r8b, 0
+    jne .loop
+    ret
 
-.end:
-    mov rax, r8
-    pop r9
-    pop r8
-    leave
+.end_null:
+    mov rax, 0
     ret
