@@ -10,8 +10,8 @@ sdbm:
     push r12
 
 .instanciate:
-    mov r8, 0
-    mov r9, r8
+    xor r8, r8
+    xor r9, r9
 
 .check_null:
     test rdi, rdi           ; test if NULL pointer

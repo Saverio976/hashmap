@@ -8,8 +8,8 @@ djb2:
     push r10
 
 .instanciate:
-    mov r8, 0
-    mov r9, r8
+    xor r8, r8
+    xor r9, r9
 
 .check_null:
     test rdi, rdi           ; test if NULL pointer
@@ -17,17 +17,19 @@ djb2:
 
 .instanciate_hash:
     mov r8, 5381
+    jmp .loop_middle
 
+; 'for' loop transformed into 'do while' loop
 .loop:
-    cmp [rdi], byte 0       ; test for '\0'
-    jz .end
     movsx r9, byte [rdi]
     mov r10, r8             ; tmp hash
     shl r8, 5               ; c:{hash << 5}
     add r8, r10             ; c:{hash += old_hash}
     add r8, r9              ; c:{hash += char}
     inc rdi                 ; pointing to next char
-    jmp .loop
+.loop_middle:
+    cmp [rdi], byte 0       ; test for '\0'
+    jnz .loop
 
 .end:
     mov rax, r8
