@@ -24,5 +24,5 @@ djb2:
     ret
 
 .end_null:
-    mov rax, 0
+    xor rax, rax
     ret

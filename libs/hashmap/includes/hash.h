@@ -13,4 +13,6 @@ size_t sdbm(const char *key);
 // from: http://www.cse.yorku.ca/~oz/hash.html
 size_t badhash(const char *key);
 
+size_t custm(const char *key);
+
 #endif

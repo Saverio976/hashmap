@@ -8,7 +8,8 @@ SRC		=	src/linkedlist.c		\
 			src/hash_sdbm.s			\
 			src/linkedlist_free.s	\
 			src/linkedlist_at.s		\
-			src/hashmap_free.s
+			src/hashmap_free.s		\
+			src/hash_custm.s
 
 OBJ		=	$(subst .s,.o,$(subst .c,.o,$(SRC)))
 
