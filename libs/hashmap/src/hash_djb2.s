@@ -19,7 +19,7 @@ djb2:
     inc rdi                 ; pointing to next char
 .loop_middle:
     movsx r8, byte [rdi]
-    cmp r8b, 0          ; test for '\0'
+    test r8b, r8b          ; test for '\0'
     jnz .loop
     ret
 

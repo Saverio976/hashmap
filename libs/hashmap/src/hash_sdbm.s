@@ -23,7 +23,7 @@ sdbm:
     inc rdi
 .loop_middle:
     movsx r8, byte [rdi]
-    cmp r8b, 0
+    test r8b, r8b
     jnz .loop
     ret
 

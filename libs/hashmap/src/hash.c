@@ -42,3 +42,5 @@ size_t badhash_c(const char *key)
     }
     return hash;
 }
+
+// TODO: asm https://en.wikipedia.org/wiki/PJW_hash_function

@@ -1,17 +1,20 @@
 TARGET	=	libhashmap.a
 
-SRC		=	src/linkedlist.c	\
-			src/hashmap.c		\
-			src/hash.c			\
-			src/hash_badhash.s	\
-			src/hash_djb2.s		\
-			src/hash_sdbm.s
+SRC		=	src/linkedlist.c		\
+			src/hashmap.c			\
+			src/hash.c				\
+			src/hash_badhash.s		\
+			src/hash_djb2.s			\
+			src/hash_sdbm.s			\
+			src/linkedlist_free.s	\
+			src/linkedlist_at.s		\
+			src/hashmap_free.s
 
 OBJ		=	$(subst .s,.o,$(subst .c,.o,$(SRC)))
 
 CFLAGS	+=	-Iincludes
 
-AFLAGS = -f elf64
+AFLAGS	=	-f elf64
 
 # UNIT TESTS
 

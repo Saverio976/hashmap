@@ -40,8 +40,19 @@ int test3(void)
     return 0;
 }
 
+int test4(void)
+{
+    ll_t list = ll_new();
+    ll_append(&list, (void *) 1);
+    void *abc = ll_at(list, 0);
+    abc = (void *) (((char *) abc) + 1);
+    return 0;
+}
+
 int main(void)
 {
     test1();
     test2();
+    test3();
+    test4();
 }

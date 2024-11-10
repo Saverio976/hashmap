@@ -4,6 +4,7 @@
 #include <criterion/assert.h>
 
 #include "hash.h"
+#include "../../src/hash_internal.h"
 
 #define MAX_NB_WORDS 11
 
@@ -23,21 +24,10 @@ static const char *basic_words[MAX_NB_WORDS] = {
 
 Test(djb2, some) {
     size_t hashed[MAX_NB_WORDS] = {0};
-    size_t hashed_res[MAX_NB_WORDS] = {
-        193496974,
-        210731095874,
-        193499011,
-        177622,
-        177623,
-        193485963,
-        193489332,
-        193491849,
-        193487034,
-        7572787954113592,
-        0,
-    };
-
+    size_t hashed_res[MAX_NB_WORDS] = {0};
+ 
     for (int i = 0; i < MAX_NB_WORDS; i++) {
+        hashed_res[i] = djb2_c(basic_words[i]);
         hashed[i] = djb2(basic_words[i]);
     }
     for (int i = 0; i < MAX_NB_WORDS; i++) {
@@ -50,21 +40,10 @@ Test(djb2, some) {
 
 Test(sdbm, some) {
     size_t hashed[MAX_NB_WORDS] = {0};
-    size_t hashed_res[MAX_NB_WORDS] = {
-        460452107327,
-        8409399078318541425,
-        469058302524,
-        49,
-        50,
-        417419622498,
-        430329505701,
-        438936619302,
-        421722785715,
-        14720992370332425563,
-        0,
-    };
+    size_t hashed_res[MAX_NB_WORDS] = {0};
 
     for (int i = 0; i < MAX_NB_WORDS; i++) {
+        hashed_res[i] = sdbm_c(basic_words[i]);
         hashed[i] = sdbm(basic_words[i]);
     }
     for (int i = 0; i < MAX_NB_WORDS; i++) {
@@ -77,21 +56,10 @@ Test(sdbm, some) {
 
 Test(badhash, some) {
     size_t hashed[MAX_NB_WORDS] = {0};
-    size_t hashed_res[MAX_NB_WORDS] = {
-        329,
-        541,
-        318,
-        49,
-        50,
-        294,
-        303,
-        324,
-        309,
-        883,
-        0,
-    };
+    size_t hashed_res[MAX_NB_WORDS] = {0};
 
     for (int i = 0; i < MAX_NB_WORDS; i++) {
+        hashed_res[i] = badhash_c(basic_words[i]);
         hashed[i] = badhash(basic_words[i]);
     }
     for (int i = 0; i < MAX_NB_WORDS; i++) {

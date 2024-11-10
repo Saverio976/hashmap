@@ -119,7 +119,8 @@ int ll_clear(ll_t *list)
     return countor;
 }
 
-ll_node_t ll_at(ll_t list, size_t index)
+// for testing purpose only
+ll_node_t ll_at_c(ll_t list, size_t index)
 {
     struct linkedlist *init_i = NULL;
     struct linkedlist *list_i = NULL;
@@ -130,10 +131,8 @@ ll_node_t ll_at(ll_t list, size_t index)
     init_i = list;
     list_i = list;
     for (size_t i = 0; i < index; i++) {
-        // ll_at need to iterate on all item until the index is found
         list_i = list_i->next;
         if (list_i == init_i) {
-            // we looped back to the first element
             return NULL;
         }
     }
@@ -160,11 +159,4 @@ ll_node_t ll_prev(ll_node_t node)
     }
     node_i = node;
     return node_i->prev;
-}
-
-void ll_free(ll_t *list)
-{
-    // only node in the list, if we remove all nodes,
-    // nothing else need to be removed
-    ll_clear(list);
 }

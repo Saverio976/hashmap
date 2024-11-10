@@ -14,9 +14,9 @@ badhash:
     add rax, r8             ; add char to the final hash
     inc rdi                 ; pointing to next char
 .loop_middle:
-    movsx r8, byte [rdi]
-    cmp r8b, 0
-    jne .loop
+    movsx r8, byte [rdi]    ; put the char in r8
+    test r8b, r8b
+    jnz .loop
     ret
 
 .end_null:

@@ -2,6 +2,7 @@
 #include <criterion/assert.h>
 
 #include "linkedlist.h"
+#include "../../src/linkedlist_internal.h"
 
 Test(ll_new, basic) {
     cr_assert_eq(ll_new(), NULL);
@@ -42,10 +43,15 @@ Test(ll_append, to_one_item) {
     cr_assert_eq(ll_prev(node2), node1);
     cr_assert_eq(ll_prev(node3), node2);
 
-    cr_assert_eq(ll_at(list, 0), node1);
-    cr_assert_eq(ll_at(list, 1), node2);
-    cr_assert_eq(ll_at(list, 2), node3);
-    cr_assert_eq(ll_at(list, 3), NULL);
+    cr_assert_eq(ll_at_c(list, 0), node1);
+    cr_assert_eq(ll_at_c(list, 1), node2);
+    cr_assert_eq(ll_at_c(list, 2), node3);
+    cr_assert_eq(ll_at_c(list, 3), NULL);
+
+    cr_assert_eq(ll_at(list, 0), ll_at_c(list, 0));
+    cr_assert_eq(ll_at(list, 1), ll_at_c(list, 1));
+    cr_assert_eq(ll_at(list, 2), ll_at_c(list, 2));
+    cr_assert_eq(ll_at(list, 3), ll_at_c(list, 3));
 
     cr_assert_eq(ll_assign(ll_at(list, 1), (void *) 10), 1);
     cr_assert_eq(ll_get(node2), (void *) 10);

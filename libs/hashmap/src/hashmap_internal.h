@@ -19,4 +19,6 @@ struct hashmap_node {
     void *data;
 };
 
+void hm_internal_free(ll_t *array, size_t capacity);
+
 #endif

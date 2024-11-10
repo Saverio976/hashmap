@@ -41,9 +41,7 @@ void hm_free(hm_t *hm)
     }
     hm_i = *hm;
     hm_clear(hm_i);
-    for (size_t i = 0; i < hm_i->capacity; i++) {
-        ll_free(hm_i->array + i);
-    }
+    hm_internal_free(hm_i->array, hm_i->capacity);
     free(hm_i->array);
     free(hm_i);
     *hm = NULL;
@@ -64,7 +62,7 @@ hm_node_t hm_at(hm_t hm, const char *key)
     hm_i = hm;
     strncpy(key1, key, HM_MAX_KEY_SIZE);
     index = hm_i->hash(key1) % hm_i->capacity;
-    // Find node if exist
+    // ---------------------------------------------------- Find node if exist
     node_init = ll_at(hm_i->array[index], 0);
     node_cursor = node_init;
     do { // iterate on all node at the index given by the hash
@@ -78,7 +76,7 @@ hm_node_t hm_at(hm_t hm, const char *key)
         }
         node_cursor = ll_next(node_cursor);
     } while (node_cursor != node_init && node_cursor != NULL);
-    // Create node if not exist
+    // ---------------------------------------------- Create node if not exist
     node_i = malloc(sizeof(struct hashmap_node) * 1);
     if (node_i == NULL) {
         return NULL;
