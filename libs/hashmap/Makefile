@@ -12,7 +12,7 @@ SRC		=	src/linkedlist.c		\
 
 OBJ		=	$(subst .s,.o,$(subst .c,.o,$(SRC)))
 
-CFLAGS	+=	-Iincludes
+CFLAGS	+=	-Iincludes -Wall -Wextra -Wpedantic
 
 AFLAGS	=	-f elf64
 

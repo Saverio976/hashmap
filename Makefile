@@ -4,7 +4,7 @@ SRC		=	src/main.c
 
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS	+=	-Ilibs/hashmap/includes
+CFLAGS	+=	-Ilibs/hashmap/includes -Wall -Wextra -Wpedantic
 
 LDFLAGS	+=	-Llibs/hashmap \
 			-lhashmap
