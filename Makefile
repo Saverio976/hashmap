@@ -1,3 +1,5 @@
+NB		?=	submit
+
 TARGET	=	hashmap_main
 
 SRC		=	src/main.c
@@ -22,3 +24,12 @@ libs/hashmap/libhashmap.a:
 
 clean:
 	rm -f $(OBJ) $(TARGET)
+
+.PHONY: submit
+submit:
+	rm -rf "$(NB)"
+	mkdir -p "$(NB)"
+	cp -r src libs "$(NB)"
+	cp Makefile README.md "$(NB)"
+	tar -czf "$(NB).tar.gz" "$(NB)"
+	cd "$(NB)" && make -C libs/hashmap unit_test

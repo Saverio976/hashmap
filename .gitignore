@@ -1,5 +1,7 @@
 *.o
 *.a
+/H00478948/*
+/H00478948.tar.gz
 vgcore.*
 /hashmap_main
 /libs/hashmap/tests/functional_tests/hash_badhash
