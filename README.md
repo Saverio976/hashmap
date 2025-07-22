@@ -11,16 +11,13 @@ __Implementation__: [./libs/hashmap](./libs/hashmap/)
 - `nasm`
 - C compiler
 
-## Example: Parse key/value from Command Line args
+## API
 
-### Usage
+- HashMap : [./libs/hashmap/includes/hashmap.h](./libs/hashmap/includes/hashmap.h)
 
-```
-# this will create an executable hashmap_main
-make
-```
+- HashFunction : [./libs/hashmap/includes/hash.h](./libs/hashmap/includes/hash.h)
 
-### Example
+## Example
 
 1. [./src/main.c](./src/main.c)
 
