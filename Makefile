@@ -14,10 +14,10 @@ LDFLAGS	+=	-Llibs/hashmap \
 all:	$(TARGET)
 
 $(TARGET):	libs/hashmap/libhashmap.a $(OBJ)
-	gcc -o $(TARGET) $(OBJ) $(LDFLAGS)
+	$(CC) -o $(TARGET) $(OBJ) $(LDFLAGS)
 
 %.o: %.c
-	gcc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 libs/hashmap/libhashmap.a:
 	$(MAKE) -C libs/hashmap

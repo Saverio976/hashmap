@@ -6,7 +6,7 @@ HashMap in C:
 
 ## Usage
 
-### Compil
+### Build
 
 ```bash
 # this will create a static archive libhashmap.a

@@ -49,10 +49,10 @@ AFLAGS_FUNCTIONAL_TEST	=	-g
 all:	$(TARGET)
 
 $(TARGET):	$(OBJ)
-	ar rcs $(TARGET) $(OBJ)
+	$(AR) rcs $(TARGET) $(OBJ)
 
 %.o:	%.c
-	gcc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 %.o:	%.s
 	nasm $(AFLAGS) $< -o $@
@@ -60,14 +60,14 @@ $(TARGET):	$(OBJ)
 unit_test:	CFLAGS	+=	$(CFLAGS_UNIT_TEST)
 unit_test:	AFLAGS	+=	$(AFLAGS_UNIT_TEST)
 unit_test:	$(OBJ) $(OBJ_UNIT_TEST)
-	gcc $(LDFLAGS_UNIT_TEST) -o $(TARGET_UNIT_TEST) $(OBJ) $(OBJ_UNIT_TEST)
+	$(CC) $(LDFLAGS_UNIT_TEST) -o $(TARGET_UNIT_TEST) $(OBJ) $(OBJ_UNIT_TEST)
 	./$(TARGET_UNIT_TEST)
 
 functional_test:	CFLAGS	+=	$(CFLAGS_FUNCTIONAL_TEST)
 functional_test:	AFLAGS	+=	$(AFLAGS_FUNCTIONAL_TEST)
 functional_test:	$(OBJ)
 	$(foreach prog_src,$(SRC_FUNCTIONAL_TEST), \
-		(gcc $(CFLAGS) -o $(prog_src:.c=) $(OBJ) $(prog_src) && \
+		($(CC) $(CFLAGS) -o $(prog_src:.c=) $(OBJ) $(prog_src) && \
 			cd $(dir $(prog_src)) && ./$(notdir $(prog_src:.c=.sh))); \
 	)
 

@@ -4,11 +4,16 @@ __Problem__: HashMap
 
 The hashmap is put on a separate folder distributed as a static library.
 
-See: [hashmap](./libs/hashmap/)
+__Implementation__: [./libs/hashmap](./libs/hashmap/)
 
-# Parse key/value from Command Line args
+## Dependencies
 
-## Usage
+- `nasm`
+- C compiler
+
+## Example: Parse key/value from Command Line args
+
+### Usage
 
 ```
 # this will create an executable hashmap_main
