@@ -19,3 +19,34 @@ __Implementation__: [./libs/hashmap](./libs/hashmap/)
 # this will create an executable hashmap_main
 make
 ```
+
+### Example
+
+1. [./src/main.c](./src/main.c)
+
+2. Create/Assign/Get/Delete:
+
+```c
+#include "hash.h"
+#include "hashmap.h"
+
+int main(int ac, char **av)
+{
+    hm_t map = NULL;
+    hm_node_t node = NULL;
+    int result = 0;
+
+    map = hm_new(100, &djb2); // Create. The hash function is specified.
+    if (map == NULL) { return 1; }
+    node = hm_at(map, "foo"); // Access. It will create the node because it does not exist yet.
+    if (node == NULL) { hm_free(&map); return 1; }
+    result = hm_assign(node, (void *) &(av[0])); // Assign value to node. The pointer is not 'owned'.
+    if (result == 0) { hm_free(&map); return 1; }
+    node = hm_at(map, "foo"); // Access. It will only retrieve the node.
+    if (node == NULL) { hm_free(&map); return 1; }
+    char *value = hm_get(node); // Get the value of the node.
+    //
+    hm_free(&map); // Cleanup.
+    return 0;
+}
+```
